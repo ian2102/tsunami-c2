@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}
+Tasks
+{% endblock %}
+
+{% block header %}<h1 class="title">Tasks</h1>{% endblock %}
+
+{% block content %}
+<div class="section" style="width: inherit;height: 65%">
+    <h1 style="margin-top: -20px;margin-bottom: -20px;">Task Generator</h1>
+    <form action="{{ url_for('add_task') }}" method="post">
+      <p>
+        <label for="name" required>Name:</label>
+        <input type="text" id="name" name="name">
+      </p>
+      <p>
+        <label for="activated">Activated:</label>
+        <br>
+        <fieldset id="activated" required>
+          <input type="checkbox" id="on_connect" name="activated" value="on connect">
+          <label for="on_connect">On Connect</label>
+          <br>
+          <input type="checkbox" id="time" name="activated" value="time">
+          <label for="time">Time:</label>
+          <input type="text" id="time_text" name="time_text">
+          <br>
+          <input type="checkbox" id="on_startup" name="activated" value="on startup">
+          <label for="on_startup">On Startup</label>
+          <br>
+          <label for="users">Users:</label>
+          <input type="text" id="users" name="users">
+          <input type="checkbox" id="all" name="all">
+          <label for="all">All</label>
+        </fieldset>
+      </p>      
+      <p>
+        <label for="action">Action:</label>
+        <br>
+        <textarea placeholder="Enter text here" style="width: 100%;height: 200px;color: white;background-color: black;" type="text" id="action" name="action" required></textarea>
+      </p>
+      <input type="submit" value="Add Task">
+    </form>
+</div>
+{% endblock %}
+
+{% block sections %}
+{% for task in data %}
+{{ task }}
+<p>
+  <input type="checkbox" id="active" name="active">
+  <label for="active">Active</label>
+</p>
+<a href="{{ url_for('remove_task', task=task) }}">Remove</a>
+{% endfor %}
+{% endblock %}

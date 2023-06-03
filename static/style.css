@@ -1,0 +1,112 @@
+body {
+  font-family: 'Space Mono', monospace;
+  background-color: black;
+  color: black;
+}
+h1 {
+  font-family: 'Space Mono', monospace;
+  color: white;
+  padding: 10px;
+}
+.dashboard {
+  border: 1px solid white;
+  margin: 20px auto;
+  text-align: center;
+  background-color: #333;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px white;
+  padding: 10px;
+}
+.title {
+  font-size: 100px;
+  margin-bottom: 30px;
+  margin-top: -20px;
+  text-align: center;
+}
+header {
+  padding: 10px;
+  text-align: center;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.sections {
+  margin-top: -40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.section {
+  font-size: 140%;
+  text-align: left;
+  width: 30%;
+  height: 300px;
+  border: 1px solid white;
+  overflow: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  background-color: rgb(145, 142, 142);
+  box-shadow: 0px 0px 10px white;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 10px;
+}
+.section::-webkit-scrollbar {
+  width: 0.8em;
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+.section::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 10px;
+}
+.section::-webkit-scrollbar-thumb:hover {
+  background-color: black;
+}
+.section ul, h3, h4 {
+  margin-top: 0;
+  padding-left: 0;
+  margin-bottom: 10px;
+}
+.navbar {
+  border: 1px solid white;
+  box-shadow: 0px 0px 10px white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: #333;
+  color: #fff;
+  padding: 0 20px;
+}
+.navbar-nav {
+  display: flex;
+  align-items: center;
+}
+.navbar a {
+  font-size: 25px;
+  color: #fff;
+  text-decoration: none;
+  margin-right: 20px;
+}
+.navbar-nav a:hover {
+  color: black;
+  text-decoration: underline;
+}
+.name {
+  font-size: 50px;
+  font-weight: bold;
+  text-align: left;
+  width: 100%;
+}
+#notes {
+  width: 90%;
+  height: 230px;
+}
+.save-button {
+  width: 30%;
+  height: 25px;
+}

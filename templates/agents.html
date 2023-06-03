@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}
+Agents
+{% endblock %}
+
+{% block header %}<h1 class="title">Agents</h1>{% endblock %}
+
+{% block content %}
+<div class="section" style="width: 95%;margin-bottom: 45px;overflow: hidden;">
+    <h1 style="margin-top: -20px;margin-bottom: -20px;">Agent Generator</h1>
+    <form action="{{ url_for('generate_agent') }}" method="post">
+      <p>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+      </p>
+      <p>
+        <label for="ip">IP:</label>
+        <input type="text" id="ip" name="ip">
+      </p>
+      <p>
+        <label for="port">Port:</label>
+        <input type="text" id="port" name="port">
+      </p>
+      <p>
+        <input type="checkbox" id="encrypted" name="encrypted">
+        <label for="encrypted">Encrypted</label>
+      </p>
+      <input type="submit" value="Generate">
+    </form>
+</div>
+{% endblock %}
+
+{% block sections %}
+{% for agent in agents %}
+<li class="section">
+  <h3><a href="/a/{{ agent }}" target="_blank">{{ agent }}</a></h3>
+</li>
+{% endfor %}
+{% endblock %}

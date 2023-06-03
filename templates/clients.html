@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}
+Clients
+{% endblock %}
+
+{% block header %}<h1 class="title">Clients</h1>{% endblock %}
+
+
+{% block sections %}
+{% for client in clients %}
+<div class="section">
+<h3>{{ client.name }}</h3>
+<ul>
+   {% for d in client.data %}
+   <li>{{ d }}</li>
+   {% endfor %}
+</ul>
+<h4>Commands</h4>
+<form action="/add/{{ client.name }}" method="post">
+   <input type="text" name="command">
+   <input type="submit" value="Add Command">
+</form>
+<ul>
+   {% for command in client.commands %}
+   <li>
+      <a href="/command/{{ client.name }}/{{ command }}" target="_blank">{{ command }}</a>
+   </li>
+   {% endfor %}
+</ul>
+</div>
+{% endfor %}
+{% endblock %}
+

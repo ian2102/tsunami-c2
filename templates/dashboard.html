@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block header %}<h1 class="title">Dashboard</h1>{% endblock %}
+{% set events, logs = data %}
+
+{% block sections %}
+<div class="section">
+   <h3>Connections</h3>
+   <ul>
+      {% for event in events %}
+      <li>{{ event }}</li>
+      {% endfor %}
+   </ul>
+</div>
+<div class="section">
+   <h3>Logs</h3>
+   <ul>
+      {% for log in logs %}
+      <li>{{ log }}</li>
+      {% endfor %}
+   </ul>
+</div>
+<div class="section">
+   <script>
+      function updateServerStatus() {
+         fetch('/network-usage')
+            .then(response => response.json())
+            .then(data => {
+                  document.getElementById('bytes-sent').textContent = data.bytes_sent;
+                  document.getElementById('bytes-received').textContent = data.bytes_recv;
+            })
+            .catch(error => console.error(error));
+         
+         fetch('/cpu-usage')
+            .then(response => response.json())
+            .then(data => {
+                  document.getElementById('cpu-usage').textContent = data.cpu_percent;
+            })
+            .catch(error => console.error(error));
+
+         fetch('/active-users')
+            .then(response => response.text())
+            .then(count => document.querySelector('#active-users').textContent = count);
+         }
+
+      updateServerStatus();
+      setInterval(updateServerStatus, 5000);
+      
+   </script>
+   <h3>Stats</h3>
+   <p>Users Connected: <span id="active-users"></span></p>
+	<p>CPU Usage: <span id="cpu-usage"></span>%</p>
+   <div id="network-usage">
+      <p>Bytes sent: <span id="bytes-sent"></span></p>
+      <p>Bytes received: <span id="bytes-received"></span></p>
+  </div>
+</div>
+<div class="section">
+   <h3>Notes <button class="save-button" onclick="saveNotes()">Save</button></h3>
+   <textarea placeholder="Enter text here" style="color: white;background-color: black;" id="notes"></textarea>
+   <script>
+     function saveNotes() {
+       var notes = document.getElementById('notes').value;
+       localStorage.setItem('notes', notes);
+     }
+
+     window.onload = function() {
+       var notes = localStorage.getItem('notes');
+       if (notes !== null) {
+         document.getElementById('notes').value = notes;
+       }
+     };
+   </script>
+ </div>
+ <div class="section">
+   <h3>Configurable Settings</h3>
+   <label for="font-size-input">Font Size:</label>
+   <input type="number" id="font-size-input" value="100" min="50" max="200" step="10">
+   <br>
+   <label for="filter-select">Filter:</label>
+   <select id="filter-select">
+     <option value="1" selected>Dark</option>
+     <option value="2">Light</option>
+   </select>
+   <br>
+   <button onclick="updateSettings()">Update Settings</button>
+</div>
+<script>
+   var fontSize = localStorage.getItem('font_size') || '100';
+   var filter = localStorage.getItem('filter') || '1';
+   
+   document.body.style.fontSize = fontSize + '%';
+   document.body.style.filter = filter == '2' ? 'invert(1)' : 'none';
+   
+   function updateSettings() {
+     var newFontSize = document.getElementById('font-size-input').value;
+   
+     var newFilter = document.getElementById('filter-select').value;
+   
+     document.body.style.fontSize = newFontSize + '%';
+     document.body.style.filter = newFilter == '2' ? 'invert(1)' : 'none';
+   
+     localStorage.setItem('font_size', newFontSize);
+     localStorage.setItem('filter', newFilter);
+   }
+   
+   window.addEventListener('load', function() {
+     document.getElementById('font-size-input').value = fontSize;
+     document.getElementById('filter-select').value = filter;
+   });
+   </script>
+</div>
+
+
+{% endblock %}
